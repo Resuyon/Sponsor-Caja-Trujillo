@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<title>Sponsor Caja Trujillo</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--black:#111;--dark:#181818;--white:#fff;--bg:#f4f4f4;--line:#ddd;--gray:#666;--blue:#150f96;--turq:#00bfd2;--orange:#ff6600}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#202020;font-family:Arial,Helvetica,sans-serif}
+header{background:#111;color:#fff;padding:18px 20px 10px;position:sticky;top:0;z-index:1000;box-shadow:0 2px 10px #0004}
+.brand{font-size:25px;font-weight:700}.sub{font-size:13px;line-height:1.35;margin-top:4px;color:#eee}
+nav{display:flex;gap:6px;overflow-x:auto;margin-top:15px}nav button{border:0;background:transparent;color:#fff;padding:10px 14px;border-radius:8px;font-size:14px;white-space:nowrap;cursor:pointer}
+nav button.active{background:#fff;color:#111;font-weight:700}
+main{max-width:1280px;margin:auto;padding:20px}.page{display:none}.page.active{display:block}h1{font-size:27px;margin:0 0 15px}
+.search{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:11px;background:#fff;font-size:16px}
+.filters{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin:11px 0}.filters select,.inline-status{padding:10px;border:1px solid var(--line);border-radius:9px;background:#fff;font-size:14px}
+.btn{border:0;border-radius:9px;padding:10px 14px;cursor:pointer;font-weight:700}.clear{background:#222;color:#fff;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:#fff;border-radius:13px;padding:16px;box-shadow:0 1px 5px #0001}.card h3{margin:0 0 7px;font-size:18px}.muted{font-size:13px;color:var(--gray)}.zone{display:inline-block;background:#eee;color:#111;padding:5px 9px;border-radius:20px;font-size:12px;margin:5px 0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.actions a,.actions button{border:0;border-radius:9px;padding:9px 12px;font-weight:700;cursor:pointer;text-decoration:none;font-size:13px}
+.map{background:#e5e5e5;color:#111!important}.people{background:#111;color:#fff}.responsibles{display:none;border-top:1px solid #ddd;margin-top:13px;padding-top:13px}.responsibles.open{display:block}.responsible-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.person{background:#f7f7f7;border-left:4px solid #111;padding:11px;border-radius:8px;font-size:12px}.person.admin{border-left-color:var(--orange)}.person.sup{border-left-color:var(--turq)}.person h4{margin:0 0 7px}.person p{margin:5px 0}.person a{color:#111;font-weight:700}
+.tablewrap{overflow:auto;background:#fff;border-radius:13px;box-shadow:0 1px 5px #0001}table{width:100%;border-collapse:collapse;min-width:1100px}th,td{padding:10px;border-bottom:1px solid #e5e5e5;text-align:left;font-size:13px}th{background:#f7f7f7}.obs-input{width:190px;padding:7px;border:1px solid #ccc;border-radius:7px}
+.update-date{font-size:13px;color:#666;margin:-6px 0 13px}.notice{background:#fff;border-left:4px solid #111;padding:13px 15px;border-radius:9px;margin-bottom:15px}
+.upload{background:#fff;border:2px dashed #ccc;padding:28px;text-align:center;border-radius:12px}.download{background:#111;color:#fff;margin-top:14px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{background:#fff;border-radius:12px;padding:17px;border-top:4px solid #111;box-shadow:0 1px 5px #0001}.stat b{display:block;font-size:28px}.stat span{font-size:13px;color:#666}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:15px}.chart-card,.map-card{background:#fff;padding:16px;border-radius:12px;box-shadow:0 1px 5px #0001}.pie-layout{display:flex;gap:18px;align-items:center;flex-wrap:wrap}.pie{width:190px;height:190px;border-radius:50%;background:conic-gradient(#111 0deg 90deg,#555 90deg 180deg,#888 180deg 270deg,#bbb 270deg 360deg);position:relative;flex:0 0 auto}.pie:after{content:"";position:absolute;inset:50px;background:#fff;border-radius:50%}.legend{flex:1;min-width:190px}.legend-row{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:12px}.dot{width:11px;height:11px;border-radius:50%;background:#111;flex:0 0 auto}.legend-row b{margin-left:auto}.bar-list{margin-top:8px}.chart-row{display:grid;grid-template-columns:145px 1fr 38px;gap:9px;align-items:center;margin:11px 0;font-size:12px}.bar{height:16px;background:#e3e3e3;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;background:#20B8C8;border-radius:20px} .mapbox{height:450px;border-radius:9px;overflow:hidden;margin-top:10px}.sup-chart-card{display:flex;flex-direction:column;justify-content:center;min-height:100%;}.sup-chart-content{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;width:100%;}.sup-chart-content .pie{width:220px;height:220px;}.sup-chart-content .pie:after{inset:58px}.sup-chart-legend{width:min(360px,100%);}.sup-chart-legend .legend-row{justify-content:center;margin:8px 0}.sup-chart-legend .legend-row b{margin-left:8px}.sup-total{text-align:center;font-size:15px;font-weight:700;margin-bottom:2px}.sup-total span{font-size:12px;font-weight:400;color:#666}.dept-popup{text-align:center;min-width:130px}.dept-popup b{font-size:15px}.dept-popup span{display:block;margin-top:4px;font-size:13px}.empty{text-align:center;color:#666;padding:35px}.toast{position:fixed;bottom:18px;right:18px;background:#111;color:#fff;padding:12px 15px;border-radius:9px;display:none;z-index:2000}
+@media(max-width:900px){main{padding:14px}.grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:1fr 1fr}.chart-grid{grid-template-columns:1fr}.responsible-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.filters{grid-template-columns:1fr}.brand{font-size:22px}.sub{font-size:12px}.cards .stat:nth-child(n+3){display:none}.chart-row{grid-template-columns:95px 1fr 30px}.pie{width:180px;height:180px}.pie:after{inset:48px}}
+.supervisor-chart-title{text-align:center;}
+
+.maps-dual{display:grid;grid-template-columns:1fr 1.35fr;gap:14px;align-items:stretch}
+.map-panel{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:10px;min-width:0}
+.map-panel h4{margin:2px 4px 10px;font-size:15px;text-align:center}
+.map-panel .mapbox{height:520px;border-radius:10px;overflow:hidden}
+@media(max-width:800px){.maps-dual{grid-template-columns:1fr}.map-panel .mapbox{height:430px}}
+.dept-popup b{font-weight:800}
+.zone-map-legend{background:rgba(255,255,255,.96);padding:9px 11px;border-radius:9px;box-shadow:0 2px 10px #0002;font-size:11px;line-height:1.45}
+.zone-legend-title{font-weight:800;margin-bottom:5px}.zone-legend-row{display:flex;align-items:center;gap:6px}.zone-legend-dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+</style>
+
+<style>
+a.map-link,a.phone-link{cursor:pointer;-webkit-tap-highlight-color:transparent}
+</style>
+
+<style>
+/* Mejoras solicitadas: dirección + copiar + coordenadas */
+.address-row{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  margin:8px 0 4px;
+}
+.address-location{
+  color:#C8102E;
+  font-size:16px;
+  line-height:1.35;
+  flex:0 0 auto;
+}
+.address-text{
+  flex:1 1 auto;
+  line-height:1.35;
+}
+.coordinates{
+  margin:2px 0 8px 0;
+  font-size:12px;
+  color:#666;
+}
+.coordinates b{color:#444}
+.supervisor-title{
+  font-weight:700;
+  margin:3px 0 8px;
+}
+.supervisor-block{
+  border:1px solid #e7e7e7;
+  border-radius:9px;
+  padding:10px;
+  margin-top:8px;
+  background:#fafafa;
+}
+.supervisor-block h4{
+  margin:0 0 7px;
+  font-size:13px;
+}
+</style>
+
+
+<style>
+.zone-map-legend{background:#fff;padding:8px 10px;border-radius:8px;box-shadow:0 1px 5px #0003;font-size:11px;line-height:1.35;max-height:220px;overflow:auto}.zone-legend-title{font-weight:800;margin-bottom:5px}.zone-legend-row{display:flex;align-items:center;gap:6px;margin:3px 0;white-space:nowrap}.zone-legend-dot{width:11px;height:11px;border-radius:2px;display:inline-block;border:1px solid #777}</style>
+</head>
+<body>
+<header>
+<div class="brand">Sponsor Caja Trujillo</div>
+<div class="sub">Portal de consulta de red de tiendas y directorio de Administradores, Supervisores y Jefes Zonales.</div>
+<nav>
+<button class="active" data-page="tiendas">Red de tiendas</button>
+<button data-page="directorio">Directorio</button>
+<button data-page="dashboard">Dashboard</button>
+</nav>
+</header>
+
+<main>
+<section id="tiendas" class="page active">
+<h1>Red de tiendas</h1>
+<input id="shopSearch" class="search" placeholder="🔎 Escribe una agencia, dirección, distrito o departamento...">
+<div class="filters">
+<select id="shopZone"></select><select id="shopDept"></select><select id="shopProv"></select><select id="shopDist"></select><select id="shopSupervisor"></select>
+</div>
+<button id="clearShop" class="btn clear">↺ Borrar filtros</button>
+<div id="shopGrid" class="grid"></div>
+</section>
+
+<section id="directorio" class="page">
+<h1>Directorio</h1>
+<div class="update-date">Última actualización: <span id="dirUpdateDate">—</span></div>
+<input id="dirSearch" class="search" placeholder="🔎 Buscar nombre, agencia, código, correo o celular...">
+<div class="filters">
+<select id="dirZone"></select>
+<select id="dirAgency"></select>
+<select id="dirSupervisor"></select>
+<select id="dirCargo"></select>
+<select id="dirEstado"></select>
+</div><button id="clearDir" class="btn clear">↺ Borrar filtros</button>
+<div class="tablewrap"><table><thead><tr><th>Agencia</th><th>Cargo</th><th>Nombre</th><th>Código</th><th>Correo</th><th>Celular</th><th>Estado</th><th>Observación</th></tr></thead><tbody id="dirBody"></tbody></table></div>
+</section>
+
+<section id="dashboard" class="page">
+<h1>Dashboard</h1>
+<div class="update-date">Información cargada desde el Excel de carga.</div>
+<div class="cards">
+<div class="stat"><b id="dashTiendas">109</b><span>Agencias</span></div>
+<div class="stat"><b id="dashZonas">13</b><span>Zonas</span></div>
+<div class="stat"><b id="dashSup">2</b><span>Supervisores Chubb</span></div>
+<div class="stat"><b id="dashDept">20</b><span>Departamentos</span></div>
+</div>
+<div class="chart-grid">
+<div class="chart-card">
+<h3>Agencias por zona — Renzo Suyón</h3>
+<div id="zoneChartRenzo"></div>
+<div class="chart-card" style="margin-top:14px;padding:0;box-shadow:none;border:0">
+<h3>Agencias por zona — Anthony Bailón</h3>
+<div id="zoneChartAnthony"></div>
+</div>
+</div>
+<div class="chart-card sup-chart-card"><h3 class="supervisor-chart-title">Agencias por supervisor Chubb</h3><div id="supChart"></div></div>
+</div>
+<div class="map-card" style="margin-top:15px"><h3>Agencias por departamento</h3>
+<div class="maps-dual">
+  <div class="map-panel"><h4>Zona Lima 1 y 2 - Norte 4 / Distritos</h4><div id="limaMap" class="mapbox"><div class="empty">Mapa interactivo de Lima.</div></div></div>
+  <div class="map-panel"><h4>Resto de Zonas / Departamento</h4><div id="peruMap" class="mapbox"><div class="empty">Mapa interactivo. Pulse un departamento para ver sus tiendas.</div></div></div>
+</div>
+</div>
+</section>
+
+</main>
+<div id="toast" class="toast"></div>
+<div id="localNotice" style="display:none;position:fixed;left:14px;right:14px;bottom:14px;z-index:1999;background:#111;color:#fff;padding:12px 14px;border-radius:10px;font-size:12px;box-shadow:0 3px 14px #0004">
+Modo archivo local: la consulta y los enlaces de mapa/llamada funcionan. La carga de Excel queda guardada en este navegador.
+<button onclick="this.parentElement.style.display='none'" style="float:right;background:#fff;color:#111;border:0;border-radius:6px;padding:3px 7px">×</button>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/esri-leaflet@3.0.19/dist/esri-leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script>
+let red=[], dir=[], dimensiones=[];
+async function loadData(){
+  try{
+    const response=await fetch("datos.json?ts="+Date.now(),{cache:"no-store"});
+    if(!response.ok) throw new Error("No se pudo cargar datos.json");
+    const data=await response.json();
+    red=Array.isArray(data["RED TIENDAS"])?data["RED TIENDAS"]:[];
+    dir=Array.isArray(data["DIRECTORIO TIENDAS"])?data["DIRECTORIO TIENDAS"]:[];
+    dimensiones=Array.isArray(data["DIMENSIONES"])?data["DIMENSIONES"]:[];
+    rebuildPeopleIndex();
+    initFilters();
+    renderDir();
+    renderShops();
+    renderCharts();
+  }catch(e){
+    console.error(e);
+    toast("No se pudieron cargar los datos.");
+  }
+}
+const STATUS=["","Capacitación","Descanso Médico","Encargado","Otro motivo","Vacaciones"];
+const storage={
+ get(k,f=null){try{return localStorage.getItem(k)??f}catch(e){return f}},
+ set(k,v){try{localStorage.setItem(k,v)}catch(e){}},
+ remove(k){try{localStorage.removeItem(k)}catch(e){}}
+};
+let updateDate=storage.get("sponsor_update_date")||"Carga inicial: "+new Date().toLocaleString("es-PE",{dateStyle:"medium",timeStyle:"short"});
+
+const val=(o,k)=>String(o[k]??"").trim();
+const dirDistrict=r=>val(r,"DISTRITO")||val(red.find(x=>val(x,"AGENCIA")===val(r,"AGENCIA")),"DISTRITO");
+const norm=s=>String(s??"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase().trim();
+const uniq=a=>[...new Set(a.filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
+const phone=s=>String(s??"").replace(/[^0-9+]/g,"");
+function fill(id,values,label){document.getElementById(id).innerHTML=`<option value="">${label}</option>`+uniq(values).map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("")}
+function toast(t){const e=document.getElementById("toast");e.textContent=t;e.style.display="block";setTimeout(()=>e.style.display="none",2200)}
+
+let peopleIndex={};
+
+function rebuildPeopleIndex(){
+ peopleIndex={};
+ dir.forEach(r=>{
+   const agency=norm(val(r,"AGENCIA"));
+   const role=norm(val(r,"CARGO"));
+   if(!agency)return;
+   if(!peopleIndex[agency]) peopleIndex[agency]={jefe:[],admin:[],sup:[]};
+   if(role==="JEFE ZONAL") peopleIndex[agency].jefe.push(r);
+   else if(role==="ADMINISTRADOR TITULAR") peopleIndex[agency].admin.push(r);
+   else if(role==="SUPERVISOR") peopleIndex[agency].sup.push(r);
+ });
+}
+
+function personBlock(p,label,cls){
+ if(!p) return `<div class="person ${cls}"><h4>${label}</h4><p class="muted">No registrado en el Directorio.</p></div>`;
+ return `<div class="person ${cls}"><h4>${label}</h4>
+ <p><b>${esc(val(p,"NOMBRE")||"Sin nombre")}</b></p>
+ <p>📞 ${val(p,"CELULAR")?`<a href="${esc(phoneUrl(val(p,"CELULAR")))}" target="_self">${esc(val(p,"CELULAR"))}</a>`:"—"}</p>
+ <p>✉️ ${val(p,"CORREO")?`<a href="mailto:${esc(val(p,"CORREO"))}">${esc(val(p,"CORREO"))}</a>`:"—"}</p>
+ <p>Estado: ${esc(val(p,"ESTADO")||"—")}</p>
+ <p>Observación: ${esc(val(p,"OBSERVACIÓN")||"—")}</p></div>`;
+}
+
+function peopleFor(agency){
+ const group=peopleIndex[norm(agency)]||{jefe:[],admin:[],sup:[]};
+ const render=(arr,label,cls)=>{
+   if(!arr.length)return personBlock(null,label,cls);
+   return arr.map(p=>personBlock(p,label,cls)).join("");
+ };
+ return (group.jefe.length ? render(group.jefe,"Jefe Zonal","") : "")+
+        render(group.admin,"Administrador Titular","admin")+
+        render(group.sup,"Supervisor","sup");
+}
+
+function mapUrl(raw){
+ const s=String(raw??"").trim();
+ if(!s)return "#";
+ // Existing Google Maps URL: preserve it, but normalize it to an https universal link.
+ if(/^https?:\/\/(www\.)?google\.[^/]+\/maps/i.test(s)) return s;
+ if(/^https?:\/\//i.test(s)) return s;
+ // If the Excel contains a maps short link or an address/query, let Google Maps resolve it.
+ return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(s);
+}
+function phoneUrl(raw){
+ const s=String(raw??"").trim();
+ if(!s)return "#";
+ // Keep digits and leading +; tel: is the standard mobile deep-link for the dialer.
+ const cleaned=s.replace(/[^\d+]/g,"");
+ return "tel:"+cleaned;
+}
+
+function shopCard(r,i){
+ const a=val(r,"AGENCIA"),maps=val(r,"GOOGLE MAPS"),address=val(r,"DIRECCIÓN"),coords=val(r,"COORDENADAS");
+ return `<div class="card"><h3>${esc(a)}</h3><span class="zone">Zona: ${esc(val(r,"ZONA"))}</span>
+ <div class="address-row">
+   <span class="address-location" title="Ubicación">📍</span>
+   <span class="address-text">${esc(address||"—")}</span>
+ </div>
+ <div class="muted">${esc(val(r,"DISTRITO"))} - ${esc(val(r,"PROVINCIA"))} - ${esc(val(r,"DEPARTAMENTO"))}</div>
+ ${coords?`<div class="coordinates"><b>Coordenadas:</b> ${esc(coords)}</div>`:""}
+ <div class="actions">${maps?`<a class="map" href="${esc(maps)}" target="_blank" rel="noopener">🗺️ Ver mapa</a>`:""}<button class="people" onclick="toggleResp(${i})">👥 Responsables</button></div>
+ <div id="resp-${i}" class="responsibles"><div class="responsible-grid">${peopleFor(a)}</div></div></div>`;
+}
+function toggleResp(i){document.getElementById("resp-"+i).classList.toggle("open")}
+function renderShops(){
+ const q=shopSearch.value.trim().toLowerCase(), z=shopZone.value,d=shopDept.value,p=shopProv.value,di=shopDist.value,s=shopSupervisor.value;
+ const hasFilter=q||z||d||p||di||s;
+ if(!hasFilter){shopGrid.innerHTML="";return}
+ const rows=red.filter(r=>(!q||Object.values(r).join(" ").toLowerCase().includes(q))&&(!z||val(r,"ZONA")===z)&&(!d||val(r,"DEPARTAMENTO")===d)&&(!p||val(r,"PROVINCIA")===p)&&(!di||val(r,"DISTRITO")===di)&&(!s||val(r,"SUPER_CHUBB")===s));
+ shopGrid.innerHTML=rows.length?rows.map(shopCard).join(""):"<div class='empty'>No se encontraron tiendas.</div>";
+}
+function renderDir(){
+ const q=dirSearch.value.trim().toLowerCase(),z=dirZone.value,a=dirAgency.value,c=dirCargo.value,s=dirSupervisor.value,e=dirEstado.value;
+ const rows=dir.filter(r=>
+   (!q||Object.values(r).join(" ").toLowerCase().includes(q)) &&
+   (!z||val(r,"ZONA")===z) &&
+   (!a||val(r,"AGENCIA")===a) &&
+   (!c||val(r,"CARGO")===c) &&
+   (!s||val(r,"SUPER_CHUBB")===s) &&
+   (!e||String(val(r,"ESTADO")||"").trim()===String(e).trim())
+ );
+ dirBody.innerHTML=rows.length?rows.map(r=>`<tr><td>${esc(val(r,"AGENCIA"))}</td><td>${esc(val(r,"CARGO"))}</td><td><b>${esc(val(r,"NOMBRE"))}</b></td><td>${esc(val(r,"CODIGO"))}</td><td>${val(r,"CORREO")?`<a href="mailto:${esc(val(r,"CORREO"))}">${esc(val(r,"CORREO"))}</a>`:""}</td><td>${val(r,"CELULAR")?`<a href="tel:${esc(phone(val(r,"CELULAR")))}">${esc(val(r,"CELULAR"))}</a>`:""}</td><td>${esc(val(r,"ESTADO")||"—")}</td><td>${esc(val(r,"OBSERVACIÓN")||"—")}</td></tr>`).join(""):"<tr><td colspan='8' class='empty'>No se encontraron registros.</td></tr>";
+}
+function saveState(){storage.set("sponsor_red",JSON.stringify(red));storage.set("sponsor_dir",JSON.stringify(dir));storage.set("sponsor_update_date",updateDate)}
+function fillSelect(id, values, label, current){
+ const el=document.getElementById(id);
+ const vals=uniq(values);
+ if(current && !vals.includes(current)) vals.unshift(current);
+ const keep=current || "";
+ el.innerHTML=`<option value="">${label}</option>`+vals.map(v=>`<option value="${esc(v)}"${v===keep?" selected":""}>${esc(v)}</option>`).join("");
+}
+
+function shopMatchesExcept(exceptId){
+ const q=shopSearch.value.trim().toLowerCase(), z=shopZone.value,d=shopDept.value,p=shopProv.value,di=shopDist.value,s=shopSupervisor.value;
+ return red.filter(r=>
+   (!q||Object.values(r).join(" ").toLowerCase().includes(q)) &&
+   (exceptId==="shopZone"||!z||val(r,"ZONA")===z) &&
+   (exceptId==="shopDept"||!d||val(r,"DEPARTAMENTO")===d) &&
+   (exceptId==="shopProv"||!p||val(r,"PROVINCIA")===p) &&
+   (exceptId==="shopDist"||!di||val(r,"DISTRITO")===di) &&
+   (exceptId==="shopSupervisor"||!s||val(r,"SUPER_CHUBB")===s)
+ );
+}
+
+function refreshShopFilters(){
+ const current={z:shopZone.value,d:shopDept.value,p:shopProv.value,di:shopDist.value,s:shopSupervisor.value};
+ fillSelect("shopZone",shopMatchesExcept("shopZone").map(r=>val(r,"ZONA")),"Todas las zonas",current.z);
+ fillSelect("shopDept",shopMatchesExcept("shopDept").map(r=>val(r,"DEPARTAMENTO")),"Todos los departamentos",current.d);
+ fillSelect("shopProv",shopMatchesExcept("shopProv").map(r=>val(r,"PROVINCIA")),"Todas las provincias",current.p);
+ fillSelect("shopDist",shopMatchesExcept("shopDist").map(r=>val(r,"DISTRITO")),"Todos los distritos",current.di);
+ fillSelect("shopSupervisor",shopMatchesExcept("shopSupervisor").map(r=>val(r,"SUPER_CHUBB")),"Todos los supervisores",current.s);
+}
+
+function dirMatchesExcept(exceptId){
+ const q=dirSearch.value.toLowerCase(),z=dirZone.value,a=dirAgency.value,s=dirSupervisor.value,c=dirCargo.value,e=dirEstado.value;
+ return dir.filter(r=>
+   (!q||Object.values(r).join(" ").toLowerCase().includes(q)) &&
+   (exceptId==="dirZone"||!z||val(r,"ZONA")===z) &&
+   (exceptId==="dirAgency"||!a||val(r,"AGENCIA")===a) &&
+   (exceptId==="dirSupervisor"||!s||val(r,"SUPER_CHUBB")===s) &&
+   (exceptId==="dirCargo"||!c||val(r,"CARGO")===c) &&
+   (exceptId==="dirEstado"||!e||val(r,"ESTADO")===e)
+ );
+}
+
+function refreshDirFilters(){
+ const current={
+   z:dirZone.value,a:dirAgency.value,s:dirSupervisor.value,
+   c:dirCargo.value,e:dirEstado.value
+ };
+ fillSelect("dirZone",dirMatchesExcept("dirZone").map(r=>val(r,"ZONA")),"Zona",current.z);
+ fillSelect("dirAgency",dirMatchesExcept("dirAgency").map(r=>val(r,"AGENCIA")),"Agencia",current.a);
+ fillSelect("dirSupervisor",dirMatchesExcept("dirSupervisor").map(r=>val(r,"SUPER_CHUBB")),"Supervisor",current.s);
+ fillSelect("dirCargo",dirMatchesExcept("dirCargo").map(r=>val(r,"CARGO")),"Cargo",current.c);
+ fillSelect("dirEstado",STATUS,"Estados",current.e);
+}
+
+function initFilters(){
+ refreshShopFilters();
+ refreshDirFilters();
+ dirUpdateDate.textContent=updateDate;
+}
+
+
+function renderCharts(){
+ const countBy=k=>{
+   const o={};
+   red.forEach(r=>{
+     const x=val(r,k)||"Sin asignar";
+     o[x]=(o[x]||0)+1;
+   });
+   return Object.entries(o).sort((a,b)=>b[1]-a[1]);
+ };
+ const colors=["#20B8C8","#FFB719","#7047A5","#F36A21","#25256F","#EF312D","#E51A8D","#7AC143","#A7A9AC"];
+ const normSup=s=>norm(String(s||""));
+ const zonesBySupervisor=(supervisor)=>{
+   const o={};
+   red.filter(r=>normSup(val(r,"SUPER_CHUBB"))===normSup(supervisor)).forEach(r=>{
+     const x=val(r,"ZONA")||"Sin asignar";
+     o[x]=(o[x]||0)+1;
+   });
+   return Object.entries(o).sort((a,b)=>b[1]-a[1]);
+ };
+ const renderZoneBlock=(id,rows)=>{
+   const el=document.getElementById(id);
+   if(!el)return;
+   if(!rows.length){el.innerHTML="<div class='empty'>Sin agencias asignadas.</div>";return}
+   const max=Math.max(1,...rows.map(x=>x[1]));
+   el.innerHTML=rows.map((x,i)=>
+     `<div class="chart-row"><span title="${esc(x[0])}">${esc(x[0])}</span><div class="bar"><i style="width:${x[1]/max*100}%;background:${colors[i%colors.length]}"></i></div><b>${x[1]}</b></div>`
+   ).join("");
+ };
+
+ renderZoneBlock("zoneChartRenzo",zonesBySupervisor("RENZO SUYÓN"));
+ renderZoneBlock("zoneChartAnthony",zonesBySupervisor("ANTHONY BAILÓN"));
+
+ const supervisors=countBy("SUPER_CHUBB");
+ const supEl=document.getElementById("supChart");
+ if(supEl){
+   const total=supervisors.reduce((s,x)=>s+x[1],0)||1;
+   let angle=0;
+   const stops=supervisors.map((x,i)=>{
+     const end=angle+x[1]/total*360;
+     const z=`${colors[i%colors.length]} ${angle}deg ${end}deg`;
+     angle=end; return z;
+   }).join(",");
+   supEl.innerHTML=`<div class="sup-chart-content"><div class="pie" style="background:conic-gradient(${stops})"></div><div class="sup-chart-legend"><div class="sup-total">Total: ${supervisors.reduce((s,x)=>s+x[1],0)} agencias</div>${
+     supervisors.map((x,i)=>`<div class="legend-row"><span class="dot" style="background:${colors[i%colors.length]}"></span><span>${esc(x[0])}</span><b>${x[1]}</b></div>`).join("")
+   }</div></div>`;
+ }
+
+ const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+ set("dashTiendas",red.length);
+ set("dashZonas",new Set(red.map(r=>val(r,"ZONA")).filter(Boolean)).size);
+ set("dashSup",new Set(red.map(r=>val(r,"SUPER_CHUBB")).filter(Boolean)).size);
+ set("dashDept",new Set(red.map(r=>val(r,"DEPARTAMENTO")).filter(Boolean)).size);
+ try{loadMap()}catch(e){console.warn("Mapa no disponible:",e)}
+}
+
+let peruMap;
+const ZONE_COLORS={
+  "SEDE 1":"#EF312D","SEDE 2":"#F36A21","NORTE 1":"#FFB719","NORTE 2":"#20B8C8","NORTE 3":"#7AC143","NORTE 4":"#7047A5","NORTE 5":"#25256F","NORTE 6":"#E51A8D","LIMA 1":"#00A6A6","LIMA 2":"#8C6BB1","SUR 1":"#A7A9AC","SUR 2":"#D97706","SUR 3":"#4B5563","CENTRO ORIENTE":"#8B5CF6"
+};
+const zoneKey=s=>String(s||"").trim().toUpperCase();
+const cleanKey=s=>norm(String(s||"")).replace(/\s+/g," ");
+
+// Reglas específicas solicitadas para el mapa:
+// - AMAZONAS = NORTE 6
+// - LA LIBERTAD = SEDE 1
+// - CAJAMARCA = NORTE 1
+// - TRUJILLO / TRUJILLO / TRUJILLO = SEDE 1
+function locationZones(dep,prov,dist){
+ const D=cleanKey(dep), P=cleanKey(prov), T=cleanKey(dist);
+ if(D==="LA LIBERTAD" && P==="TRUJILLO" && T==="TRUJILLO") return ["SEDE 1"];
+ if(D==="AMAZONAS") return ["NORTE 6"];
+ if(D==="LA LIBERTAD") return ["SEDE 1"];
+ if(D==="CAJAMARCA") return ["NORTE 1"];
+ const rows=dimensiones.filter(r=>cleanKey(val(r,"DEPARTAMENTO"))===D && cleanKey(val(r,"PROVINCIA"))===P && cleanKey(val(r,"DISTRITO"))===T);
+ return [...new Set(rows.map(r=>zoneKey(val(r,"ZONA"))).filter(Boolean))];
+}
+function provinceZones(dep,prov){
+ const D=cleanKey(dep), P=cleanKey(prov);
+ if(D==="AMAZONAS") return ["NORTE 6"];
+ if(D==="LA LIBERTAD") return ["SEDE 1"];
+ if(D==="CAJAMARCA") return ["NORTE 1"];
+ const rows=dimensiones.filter(r=>cleanKey(val(r,"DEPARTAMENTO"))===D && cleanKey(val(r,"PROVINCIA"))===P);
+ return [...new Set(rows.map(r=>zoneKey(val(r,"ZONA"))).filter(Boolean))];
+}
+function departmentZones(dep){
+ const D=cleanKey(dep);
+ if(D==="AMAZONAS") return ["NORTE 6"];
+ if(D==="LA LIBERTAD") return ["SEDE 1"];
+ if(D==="CAJAMARCA") return ["NORTE 1"];
+ const rows=dimensiones.filter(r=>cleanKey(val(r,"DEPARTAMENTO"))===D);
+ return [...new Set(rows.map(r=>zoneKey(val(r,"ZONA"))).filter(Boolean))];
+}
+function zoneLegend(){
+ const zones=[...new Set(dimensiones.map(r=>zoneKey(val(r,"ZONA"))).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
+ const control=L.control({position:"bottomright"});
+ control.onAdd=function(){
+   const div=L.DomUtil.create("div","zone-map-legend");
+   div.innerHTML=`<div class="zone-legend-title">Zonas</div>`+zones.map(z=>
+     `<div class="zone-legend-row"><span class="zone-legend-dot" style="background:${ZONE_COLORS[z]||"#999"}"></span><span>${esc(z)}</span></div>`
+   ).join("");
+   L.DomEvent.disableClickPropagation(div);
+   return div;
+ };
+ control.addTo(peruMap);
+}
+function zoneStyle(zone,opacity=0.58,highlight=false){
+ return {
+   color:highlight?"#111":"#777",
+   weight:highlight?4:1.2,
+   opacity:highlight?1:0.85,
+   fillColor:ZONE_COLORS[zone]||"#ffffff",
+   fillOpacity:zone&&ZONE_COLORS[zone] ? opacity : 0
+ };
+}
+function popupForDept(key,counts){
+ const zones=departmentZones(key);
+ const n=counts[key]||0;
+ return `<div class="dept-popup" style="min-width:190px">
+   <div><b>${esc(String(key).toUpperCase())}</b></div>
+   <div><span>${n} ${n===1?"Tienda":"Tiendas"}</span></div>
+   <div style="margin-top:5px;font-size:12px"><b>${zones.length>1?"Zonas":"Zona"}:</b> ${esc(zones.join(" - ")||"Sin asignar")}</div>
+ </div>`;
+}
+function makeBaseMap(id,center,zoom,bounds){
+  const el=document.getElementById(id); if(!el||!window.L)return null;
+  el.innerHTML="";
+  const minZoom=Math.max(3,zoom-2); const map=L.map(id,{zoomControl:true,attributionControl:true,minZoom:minZoom,maxZoom:18}).setView(center,zoom);
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",{
+    maxZoom:18,
+    attribution:"&copy; Esri, HERE, Garmin, Intermap, increment P Corp., GEBCO, USGS, FAO, NPS, NRCAN, GeoBase, IGN, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), (c) OpenStreetMap contributors"
+  }).addTo(map);
+  setTimeout(()=>map.invalidateSize(),100);
+  return map;
+}
+function addZoneLegend(map){
+  const zones=[...new Set(dimensiones.map(r=>zoneKey(val(r,"ZONA"))).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
+  const control=L.control({position:"bottomright"});
+  control.onAdd=function(){
+    const div=L.DomUtil.create("div","zone-map-legend");
+    div.innerHTML='<div class="zone-legend-title">Zonas</div>'+zones.map(z=>`<div class="zone-legend-row"><span class="zone-legend-dot" style="background:${ZONE_COLORS[z]||"#999"}"></span><span>${esc(z)}</span></div>`).join("");
+    L.DomEvent.disableClickPropagation(div); return div;
+  }; control.addTo(map);
+}
+function zoneStyle(zone,opacity=.62,highlight=false){return {color:highlight?"#111":"#777",weight:highlight?4:1.2,opacity:highlight?1:.9,fillColor:ZONE_COLORS[zone]||"#fff",fillOpacity:zone&&ZONE_COLORS[zone]?opacity:0};}
+function departmentZones(dep){
+  const D=cleanKey(dep);
+  if(D==="AMAZONAS") return ["NORTE 6"];
+  if(D==="LA LIBERTAD") return ["SEDE 1"];
+  if(D==="CAJAMARCA") return ["NORTE 1"];
+  const rows=dimensiones.filter(r=>cleanKey(val(r,"DEPARTAMENTO"))===D);
+  return [...new Set(rows.map(r=>zoneKey(val(r,"ZONA"))).filter(Boolean))];
+}
+function provinceZones(dep,prov){
+  const D=cleanKey(dep),P=cleanKey(prov);
+  if(D==="AMAZONAS")return ["NORTE 6"];
+  if(D==="LA LIBERTAD")return ["SEDE 1"];
+  if(D==="CAJAMARCA")return ["NORTE 1"];
+  const rows=dimensiones.filter(r=>cleanKey(val(r,"DEPARTAMENTO"))===D&&cleanKey(val(r,"PROVINCIA"))===P);
+  return [...new Set(rows.map(r=>zoneKey(val(r,"ZONA"))).filter(Boolean))];
+}
+function locationZones(dep,prov,dist){
+  const D=cleanKey(dep),P=cleanKey(prov),T=cleanKey(dist);
+  if(D==="LA LIBERTAD")return ["SEDE 1"];
+  if(D==="AMAZONAS")return ["NORTE 6"];
+  if(D==="CAJAMARCA")return ["NORTE 1"];
+  const rows=dimensiones.filter(r=>cleanKey(val(r,"DEPARTAMENTO"))===D&&cleanKey(val(r,"PROVINCIA"))===P&&cleanKey(val(r,"DISTRITO"))===T);
+  return [...new Set(rows.map(r=>zoneKey(val(r,"ZONA"))).filter(Boolean))];
+}
+function countByDepartment(){const c={};red.forEach(r=>{const k=cleanKey(val(r,"DEPARTAMENTO"));if(k)c[k]=(c[k]||0)+1});return c;}
+function countByProvince(dep,prov){const D=cleanKey(dep),P=cleanKey(prov);return red.filter(r=>cleanKey(val(r,"DEPARTAMENTO"))===D&&cleanKey(val(r,"PROVINCIA"))===P).length}
+function countByDistrict(dep,prov,dist){const D=cleanKey(dep),P=cleanKey(prov),T=cleanKey(dist);return red.filter(r=>cleanKey(val(r,"DEPARTAMENTO"))===D&&cleanKey(val(r,"PROVINCIA"))===P&&cleanKey(val(r,"DISTRITO"))===T).length}
+function popupDept(dep,counts,zones){const n=counts[cleanKey(dep)]||0;return `<div class="dept-popup"><div><b>${esc(String(dep).toUpperCase())}</b></div><div>${n} ${n===1?'TIENDA':'TIENDAS'}</div><div><b>ZONA</b> ${esc(zones.join(' - ')||'Sin asignar')}</div></div>`}
+function loadMap(){
+ if(!window.L||!window.L.esri)return;
+ const peruBounds=L.latLngBounds([[-18.7,-81.7],[0.9,-68.5]]);
+ const limaBounds=L.latLngBounds([[-12.65,-77.35],[-11.65,-76.55]]);
+ const peruMap=makeBaseMap("peruMap",[-9.2,-75],5.75,peruBounds);
+ const limaMap=makeBaseMap("limaMap",[-11.95,-76.95],9,limaBounds);
+ if(!peruMap||!limaMap)return;
+
+ const counts=countByDepartment(); let selectedZone=null; const deptLayers=[];
+ const serviceBase="https://georural.midagri.gob.pe/geoservicios/rest/services/public/Demarcacion_Territorial/MapServer";
+ function applyDeptStyles(){deptLayers.forEach(layer=>{const p=layer.feature?.properties||{};const dep=p.nombdep||p.NOMBDEP||p.NOMBRE||p.DEPARTAMENTO||"";const z=departmentZones(dep);layer.setStyle(zoneStyle(z.length===1?z[0]:null,.62,selectedZone&&z.length===1&&z[0]===selectedZone));});}
+ const deptLayer=L.esri.featureLayer({url:serviceBase+"/0",simplifyFactor:.5,precision:5,style:feature=>{const p=feature?.properties||{};const dep=p.nombdep||p.NOMBDEP||p.NOMBRE||p.DEPARTAMENTO||"";const z=departmentZones(dep);return zoneStyle(z.length===1?z[0]:null,.62,false)},onEachFeature:(feature,layer)=>{
+   deptLayers.push(layer);const p=feature?.properties||{};const dep=p.nombdep||p.NOMBDEP||p.NOMBRE||p.DEPARTAMENTO||"";const key=cleanKey(dep);
+   layer.on("click",e=>{const z=departmentZones(key);selectedZone=z.length===1?z[0]:null;applyDeptStyles();L.popup({maxWidth:220}).setLatLng(e.latlng).setContent(popupDept(key,counts,z)).openOn(peruMap)});
+   layer.on("mouseover",()=>layer.setStyle({weight:2.5,color:"#333",opacity:1}));layer.on("mouseout",applyDeptStyles);
+ }}).addTo(peruMap);
+ deptLayer.on("load",()=>{applyDeptStyles();peruMap.invalidateSize()});
+ // En el segundo mapa se recupera la versión anterior a la división: también
+ // muestra el detalle de Lima por provincia/distrito.
+ const peruLimaProv=L.esri.featureLayer({url:serviceBase+"/1",where:"nombdep = 'LIMA'",simplifyFactor:.5,precision:5,style:feature=>{const p=feature?.properties||{};const prov=p.nombprov||p.NOMBPROV||p.PROVINCIA||"";const z=provinceZones("LIMA",prov);return zoneStyle(z.length===1?z[0]:null,.68,false)},onEachFeature:(feature,layer)=>{const p=feature?.properties||{};const prov=p.nombprov||p.NOMBPROV||p.PROVINCIA||"";const z=provinceZones("LIMA",prov);if(z.length===1)layer.bindTooltip(`${esc(prov)}<br><b>Zona: ${esc(z[0])}</b>`,{sticky:true})}}).addTo(peruMap);
+ const peruLimaDist=L.esri.featureLayer({url:serviceBase+"/2",where:"nombdep = 'LIMA'",simplifyFactor:.5,precision:5,style:feature=>{const p=feature?.properties||{};const prov=p.nombprov||p.NOMBPROV||p.PROVINCIA||"";const dist=p.nombdist||p.NOMBDIST||p.DISTRITO||"";const z=locationZones("LIMA",prov,dist);return zoneStyle(z.length===1?z[0]:null,.74,false)},onEachFeature:(feature,layer)=>{const p=feature?.properties||{};const prov=p.nombprov||p.NOMBPROV||p.PROVINCIA||"";const dist=p.nombdist||p.NOMBDIST||p.DISTRITO||"";const z=locationZones("LIMA",prov,dist);if(z.length===1){layer.bindTooltip(`${esc(dist)}<br><b>Zona: ${esc(z[0])}</b>`,{sticky:true});layer.on("click",e=>{const n=countByDistrict("LIMA",prov,dist);L.popup({maxWidth:220}).setLatLng(e.latlng).setContent(`<div class="dept-popup"><b>LIMA — ${esc(dist).toUpperCase()}</b><br>${n} ${n===1?'TIENDA':'TIENDAS'}<br><b>ZONA</b> ${esc(z[0])}</div>`).openOn(peruMap)})}}}).addTo(peruMap);
+ peruLimaProv.on("load",()=>peruMap.invalidateSize());
+ peruLimaDist.on("load",()=>peruMap.invalidateSize());
+ // Lima: province layer first; mixed provinces are refined by district layer.
+ const LIMA_DISTRICT_ZONES={
+   "HUACHO":"NORTE 4",
+   "HUARAL":"NORTE 4",
+   "BARRANCA":"NORTE 4",
+   "VILLA EL SALVADOR":"LIMA 1",
+   "VILLA MARIA DEL TRIUNFO":"LIMA 1",
+   "SAN JUAN DE MIRAFLORES":"LIMA 1",
+   "ATE":"LIMA 1",
+   "ATE VITARTE":"LIMA 1",
+   "LURIGANCHO CHOSICA":"LIMA 1",
+   "LURIGANCHO":"LIMA 1",
+   "CHOSICA":"LIMA 1",
+   "MIRAFLORES":"LIMA 1",
+   "LIMA":"LIMA 2",
+   "LIMA CERCADO":"LIMA 2",
+   "LIMA CERCADO (CENTRO DE LIMA)":"LIMA 2",
+   "SAN ISIDRO":"LIMA 2",
+   "PUENTE PIEDRA":"LIMA 2",
+   "CARABAYLLO":"LIMA 2",
+   "LOS OLIVOS":"LIMA 2",
+   "SAN MARTIN DE PORRES":"LIMA 2",
+   "SAN JUAN DE LURIGANCHO":"LIMA 2"
+ };
+ const LIMA_MAP_COLORS={"NORTE 4":"#F28C28","LIMA 1":"#8E44AD","LIMA 2":"#8BC34A"};
+ const limaDistrictKey=s=>cleanKey(String(s||"")).replace(/\s+/g," ");
+ function limaDistrictZone(dist,prov=""){
+   const D=limaDistrictKey(dist), P=limaDistrictKey(prov);
+   // Solo "Lima" y "Miraflores" de la provincia de Lima Metropolitana.
+   if((D==="LIMA" || D==="MIRAFLORES") && P && P!=="LIMA") return "";
+   return LIMA_DISTRICT_ZONES[D]||"";
+ }
+ function limaDistrictCount(dist){
+   const D=limaDistrictKey(dist);
+   return red.filter(r=>{
+     const rd=limaDistrictKey(val(r,"DISTRITO"));
+     const rp=limaDistrictKey(val(r,"PROVINCIA"));
+     if(limaDistrictZone(D,rp)==="") return false;
+     if(D==="CHOSICA" || D==="LURIGANCHO CHOSICA" || D==="LURIGANCHO") return rd==="CHOSICA" || rd==="LURIGANCHO" || rd==="LURIGANCHO CHOSICA";
+     if(D==="ATE" || D==="ATE VITARTE") return rd==="ATE" || rd==="ATE VITARTE";
+     if(D==="LIMA" || D==="LIMA CERCADO") return rd==="LIMA" || rd==="LIMA CERCADO" || rd==="LIMA CERCADO (CENTRO DE LIMA)";
+     return rd===D;
+   }).length;
+ }
+ function limaDistrictStyle(zone,selected=false){
+   return {
+     color:selected?"#111":"#777",
+     weight:selected?4:1.2,
+     opacity:1,
+     fillColor:LIMA_MAP_COLORS[zone]||"#fff",
+     fillOpacity:zone?0.72:0
+   };
+ }
+ const limaDist=L.esri.featureLayer({
+   url:serviceBase+"/2",
+   where:"nombdep = 'LIMA'",
+   simplifyFactor:.5,
+   precision:5,
+   style:feature=>{
+     const p=feature?.properties||{};
+     const prov=p.nombprov||p.NOMBPROV||p.PROVINCIA||"";
+     const dist=p.nombdist||p.NOMBDIST||p.DISTRITO||"";
+     return limaDistrictStyle(limaDistrictZone(dist,prov),false);
+   },
+   onEachFeature:(feature,layer)=>{
+     const p=feature?.properties||{};
+     const prov=p.nombprov||p.NOMBPROV||p.PROVINCIA||"";
+     const dist=p.nombdist||p.NOMBDIST||p.DISTRITO||"";
+     const key=limaDistrictKey(dist);
+     const zone=limaDistrictZone(dist,prov);
+     // Solo los distritos solicitados se pintan y solo al pulsarlos aparece la leyenda.
+     if(zone){
+       layer.on("click",e=>{
+         layer.setStyle(limaDistrictStyle(zone,true));
+         const n=limaDistrictCount(dist);
+         L.popup({maxWidth:220})
+           .setLatLng(e.latlng)
+           .setContent(`<div class="dept-popup"><div><b>${esc(String(dist).toUpperCase())}</b></div><div>${n} ${n===1?"TIENDA":"TIENDAS"}</div></div>`)
+           .openOn(limaMap);
+       });
+     }
+   }
+ }).addTo(limaMap);
+
+ limaDist.on("load",()=>limaMap.invalidateSize());
+ setTimeout(()=>{peruMap.invalidateSize();limaMap.invalidateSize()},250);
+}
+
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(b.dataset.page).classList.add("active");if(b.dataset.page==="dashboard")setTimeout(()=>{renderCharts();document.querySelectorAll(".leaflet-container").forEach(el=>{const m=el._leaflet_map;if(m)m.invalidateSize()})},100)});
+["shopSearch","shopZone","shopDept","shopProv","shopDist","shopSupervisor"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{
+ refreshShopFilters(); renderShops();
+}));
+["dirSearch"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{
+ refreshDirFilters(); renderDir();
+}));
+["dirZone","dirAgency","dirSupervisor","dirCargo","dirEstado"].forEach(id=>document.getElementById(id).addEventListener("change",()=>{
+ refreshDirFilters(); renderDir();
+}));
+clearShop.onclick=()=>{shopSearch.value="";[shopZone,shopDept,shopProv,shopDist,shopSupervisor].forEach(x=>x.value="");refreshShopFilters();renderShops();};
+clearDir.onclick=()=>{dirSearch.value="";[dirZone,dirAgency,dirSupervisor,dirCargo,dirEstado].forEach(x=>x.value="");refreshDirFilters();renderDir();};
+loadData();
+try{if(location.protocol==="file:")document.getElementById("localNotice").style.display="block"}catch(e){}
+</script>
+</body></html>
